@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  mongodb:
+    image: "mongo"
+    container_name: mongo_container
+    ports:
+     - "27017:27017"
+    volumes:
+     - akshat_volume:/data/db
+  backend:
+    image: "backend"
+    container_name: backend_application
+    depends_on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+     MONGO_URL : "mongodb://mongo_container:27017/myDatabase"
+
+volumes:
+  akshat_volume:
